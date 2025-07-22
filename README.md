@@ -11,6 +11,10 @@ Doxygen の LaTeX 出力で日本語を使う（LaTeX スタイルシートに�
 概要
 ----
 
+tsntsumi様のdoxygenjpextをDoxygen 1.14.0環境でも使えるように更新しました。
+
+---
+
 参考 URL の最初の2つのサイトにあるように、Doxygen の LaTeX 出力ソースからの PDF 作成は、
 欧文の LaTeX もしくは pdfLaTeX を想定しており、そのままでは日本語が使えません。
 PDF の日本語が文字化けしてしまいます。
@@ -39,11 +43,10 @@ Doxygen の `Doxyfile` に書いておくだけで、
 動作確認は以下の環境で行いましたが、他の環境でも同じスタイルシートが使えると期待しています。
 
 - オペレーティングシステム：
-    - Windows 7 Professional 64bit
-    - macOS High Sierra
+    - Windows 11 Professional 64bit
 - アプリケーション：
-    - Doxygen: 1.8.14 (Cygwin 版 / Homebrew 版)
-    - LaTeX: e-upTeX 3.14159265-p3.8.1-u1.23-180226-2.6 (utf8.uptex) (TeX Live 2018)
+    - Doxygen: 1.14.0
+    - LaTeX: e-upTeX 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.uptex) (TeX Live 2025)
 
 - - - - - - - - -
 
@@ -118,7 +121,7 @@ Adobe Acrobat Reader のような PDF Viewer でブラウズするときに便�
 [`fontsettings.sty`](fontsettings.sty)、
 [`hyperlinkfix.sty`](hyperlinkfix.sty) です。
 
-それらのうち、 `pdfnfo.sty` は、プロジェクト固有の情報を設定するため、
+それらのうち、 `pdfinfo.sty` は、プロジェクト固有の情報を設定するため、
 修正を行う必要があります。ファイルの内容は、以下のようになっているので、
 `TITLE`, `PROJECT NAME`, `AUTHOR NAME`, `Doxygen 1.8.14`,
 `KEYWORDS` を書き換えてください。
@@ -295,7 +298,7 @@ jsbook 内で索引を目次に出力している `addcontentsline` マクロを
 
 - - - - - - - - - - -
 
-### フォントに関する設定を行う(`fontosettings.sty`)
+### フォントに関する設定を行う(`fontsettings.sty`)
 
 個人的な好みの設定になりますが、 `fontsettings.sty` に以下の内容を記述します。
 (したがってこのスタイルシートは `LATEX_EXTRA_STYLESHEET` に書かなくても構いません。)
@@ -330,7 +333,7 @@ Doxygen は書体にサンセリフ体を指定していますが、
       \renewcommand{\kanjifamilydefault}{\mcdefault}
       \renewcommand{\familydefault}{\rmdefault}
       % Select sanserif fonts in section headers
-      \allsectionsfont{%
+      \doxyallsectionsfont{%
         \gtfamily\sffamily%
         \fontseries{bc}\selectfont%
         \color{darkgray}%
